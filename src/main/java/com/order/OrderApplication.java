@@ -1,4 +1,4 @@
-package com.pachimari;
+package com.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @SpringBootApplication
 @EnableAutoConfiguration
-public class PachimariApplication {
+public class OrderApplication {
 
     @RequestMapping("/")
     @ResponseBody
     String home() {
-        return "Hello World!";
+        return "Hello World! Order";
     }
 
 	public static void main(String[] args) {
-		SpringApplication.run(PachimariApplication.class, args);
+		SpringApplication.run(OrderApplication.class, args);
 		// Test
 	}
 
