@@ -24,16 +24,16 @@ public class OrderController {
     private OrderServiceImpl orderService;
 
     @Autowired
-    private UserServiceImpl userService;
+    private String userService;
 
     @GetMapping()
     public List<OrderDTO> getOrdersList() {
         return orderService.getOrders();
     }
 
-    @GetMapping("/users/{login}")
-    public List<OrderDTO> getOrdersListByLogin(@PathVariable("login") String login){
-        UserDTO userDTO = userService.getUserByLogin(login);
+    @GetMapping("/users/{id}")
+    public List<OrderDTO> getOrdersListByLogin(@PathVariable("id") String login){
+        String userDTO = login;
 
         return orderService.getUserOrders(userDTO);
     }

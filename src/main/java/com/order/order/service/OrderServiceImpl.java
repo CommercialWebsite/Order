@@ -2,6 +2,7 @@ package com.order.order.service;
 
 import com.order.order.model.OrderAdapter;
 import com.order.order.model.OrderDTO;
+import com.order.order.model.OrderEntity;
 import com.order.order.model.OrderRepository;
 //import com.pachimari.product.ProductEntity;
 //import com.pachimari.user.UserAdapter;
@@ -11,22 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
-import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
 
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -55,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> getUserOrders(String userDTO) {
-        return OrderAdapter.listToOrderDTO(orderRepository.findByUser(UserAdapter.toUserEntity(userDTO).getId()));
+        return OrderAdapter.listToOrderDTO(orderRepository.findByUser(userDTO));
     }
 
     @Override
@@ -66,9 +55,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void calculateAmountOrder(OrderDTO orderDTO) {
         double amount = 0;
-
-        for(Double item : orderDTO.getPricies()){
-            amount += item;
+        for( Map.Entry<String,Double> item: orderDTO.getItems().entrySet()){
+            amount += item.getValue();
         }
 
         orderDTO.setAmount(amount);

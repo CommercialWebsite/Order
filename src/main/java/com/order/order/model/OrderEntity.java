@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -33,10 +34,8 @@ public class OrderEntity {
     private String user;
 
     @DBRef
-    private List<String> items = new ArrayList<>(0);
+    private HashMap<String, Double> items = new HashMap<>();
 
-    @DBRef
-    private List<Double> pricies = new ArrayList<>(0);
 
     private double amount;
 }

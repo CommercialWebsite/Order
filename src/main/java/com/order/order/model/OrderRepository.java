@@ -12,4 +12,8 @@ public interface OrderRepository extends MongoRepository<OrderEntity, String> {
     OrderEntity findById(String id);
 
     List<OrderEntity> findByUser(String id);
+
+
+    OrderDTO findAllItems();
+
 }
